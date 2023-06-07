@@ -1,0 +1,30 @@
+@use "base";
+nav {
+}
+.logo {
+    width: 200px;
+    display: inline;
+    img {
+        width: 200px;
+        color: base.$blue;
+    }
+}
+ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+li {
+    padding: 20px;
+}
+
+a {
+    color: base.$gray !important;
+    text-decoration: none !important;
+
+    &:hover {
+        color: base.$blue !important;
+        // border-bottom: 2px solid base.$blue !important;
+    }
+}
