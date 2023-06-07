@@ -10,9 +10,17 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { Dropdown } from "primereact/dropdown";
 
 function Workers() {
   const [workers, setWorkers] = useState([]);
+  const [statuses] = useState([
+    "PRIMARY_SCHOOL",
+    "SECONDARY_SCHOOL",
+    "HIGH_SCHOOL",
+    "BACHELOR_DEGREE",
+    "MASTER_DEGREE",
+  ]);
   useEffect(() => {
     axios
       .get("http://localhost:8080/worker/all")
@@ -49,22 +57,31 @@ function Workers() {
       />
     );
   };
+  const statusEditor = (options) => {
+    return (
+      <Dropdown
+        value={options.value}
+        options={statuses}
+        onChange={(e) => options.editorCallback(e.value)}
+        placeholder="Select a Status"
+        itemTemplate={(option) => {
+          return <Tag value={option} severity={getSeverity(option)}></Tag>;
+        }}
+      />
+    );
+  };
   const getSeverity = (status) => {
     switch (status) {
+      case "PRIMARY_SCHOOL":
+        return "info";
+      case "SECONDARY_SCHOOL":
+        return "warning";
       case "HIGH_SCHOOL":
         return "danger";
-
       case "BACHELOR_DEGREE":
         return "success";
-
-      case "new":
-        return "info";
-
-      case "negotiation":
-        return "warning";
-
-      case "renewal":
-        return null;
+      case "MASTER_DEGREE":
+        return "success";
     }
   };
   return (
@@ -99,7 +116,6 @@ function Workers() {
             field="dob"
             sortable
             header="DOB"
-            editor={(options) => textEditor(options)}
             style={{ width: "10%" }}
           ></Column>
           <Column
@@ -114,7 +130,7 @@ function Workers() {
             body={educationBodyTemplate}
             sortable
             header="Education"
-            editor={(options) => textEditor(options)}
+            editor={(options) => statusEditor(options)}
             style={{ width: "10%" }}
           ></Column>
           <Column
