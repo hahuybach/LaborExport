@@ -20,8 +20,8 @@ function Navbar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/workers">
-            <FontAwesomeIcon icon={faUserFriends} /> &nbsp; Workers
+          <NavLink to="/worker">
+            <FontAwesomeIcon icon={faUserFriends} /> &nbsp; Worker
           </NavLink>
         </li>
         <li>
